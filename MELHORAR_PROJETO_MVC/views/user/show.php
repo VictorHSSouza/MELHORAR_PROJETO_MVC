@@ -10,6 +10,7 @@
     <p><strong>ID:</strong> <?php echo htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8'); ?></p>
     <p><strong>Name:</strong> <?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?></p>
     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?></p>
+    <p><strong>Senha:</strong> <?php for($i = 0; $i < strlen(htmlspecialchars($user['senha'], ENT_QUOTES, 'UTF-8')); $i++){ echo '•';}; ?></p>
     <a href="index.php?action=users">Voltar para lista de usuários</a>
 </body>
 </html>

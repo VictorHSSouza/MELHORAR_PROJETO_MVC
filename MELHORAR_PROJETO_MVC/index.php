@@ -4,6 +4,24 @@ include_once 'config/database.php';
 include_once 'controllers/UserController.php';
 include_once 'controllers/TaskController.php';
 
+session_start();
+
+// Verificação se o usuário está logado
+if(!$_POST)
+{
+    if(!isset($_SESSION['user_id']) and $_SERVER['REQUEST_URI'] != '/MELHORAR_PROJETO_MVC/index.php?action=login') {
+        header("Location: index.php?action=login");
+        ?>
+            <div class="alert text-center alert-danger" role="alert">
+                Nome de usuário ou senha incorretos
+            </div>
+        <?php
+    
+        exit;
+    }
+}
+
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -20,7 +38,8 @@ switch ($action) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $email = $_POST['email'];
-            $message = $userController->create($name, $email);
+            $senha = $_POST['senha'];
+            $message = $userController->create($name, $email, $senha);
             echo $message;
             echo '<a href="index.php">Back to User List</a>';
         } else {
@@ -46,7 +65,8 @@ switch ($action) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = $_POST['name'];
                 $email = $_POST['email'];
-                $message = $userController->update($id, $name, $email);
+                $senha = $_POST['senha'];
+                $message = $userController->update($id, $name, $email, $senha);
                 echo $message;
                 echo '<a href="index.php">Back to User List</a>';
             } else {
@@ -128,6 +148,40 @@ switch ($action) {
     case 'tasks':
         $tasks = $taskController->readAll();
         include 'views/task/index.php';
+        break;
+    
+    case 'login':
+        include 'views/login/login.php';
+    break;
+
+    case 'logar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $senha = $_POST['senha'];
+            if($userController->login($email, $senha))
+            {
+                $_SESSION['user_id'] = 1;
+                ?>
+                    <div class="alert text-center alert-success" role="alert">
+                        Login realizado com sucesso
+                    </div>
+                <?php
+                include 'views/home.php';
+            } else {
+                ?>
+                    <div class="alert text-center alert-danger" role="alert">
+                        Nome de usuário ou senha incorretos
+                    </div>
+                <?php
+                include 'views/login/login.php';
+            }
+        } else {
+            include 'views/login/login.php';
+        }
+        break;
+
+    case 'logout':
+        $users = $userController->logout();
         break;
 
     default:

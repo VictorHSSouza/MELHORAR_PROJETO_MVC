@@ -14,6 +14,9 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?>" required>
         <br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" value="<?php echo htmlspecialchars($user['senha'], ENT_QUOTES, 'UTF-8'); ?>" required>
+        <br>
         <input type="submit" value="Update">
     </form>
     <a href="index.php?action=users">Voltar para lista de usuários</a>

@@ -32,6 +32,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Senha</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -41,6 +42,7 @@
                     <td><?php echo htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php for($i = 0; $i < strlen(htmlspecialchars($user['senha'], ENT_QUOTES, 'UTF-8')); $i++){ echo '•';}; ?></td>
                     <td>
                         <a href="index.php?action=read_user&id=<?php echo $user['id']; ?>">Ver</a>
                         <a href="index.php?action=update_user&id=<?php echo $user['id']; ?>">Editar</a>

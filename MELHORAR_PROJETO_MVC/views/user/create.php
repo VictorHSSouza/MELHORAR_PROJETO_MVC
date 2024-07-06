@@ -14,6 +14,9 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
         <br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        <br>
         <input type="submit" value="Create">
     </form>
     <a href="index.php?action=users">Voltar para lista de usuários</a>
