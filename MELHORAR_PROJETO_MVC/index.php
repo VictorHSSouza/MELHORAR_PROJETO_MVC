@@ -6,10 +6,11 @@ include_once 'controllers/TaskController.php';
 
 session_start();
 
+$URL = explode('/', $_SERVER['REQUEST_URI']);
 // Verificação se o usuário está logado
 if(!$_POST)
 {
-    if(!isset($_SESSION['user_id']) and $_SERVER['REQUEST_URI'] != '/MELHORAR_PROJETO_MVC/index.php?action=login') {
+    if(!isset($_SESSION['user_id']) and $URL[count($URL) - 1] != 'index.php?action=login') {
         header("Location: index.php?action=login");
         ?>
             <div class="alert text-center alert-danger" role="alert">
@@ -166,7 +167,7 @@ switch ($action) {
                         Login realizado com sucesso
                     </div>
                 <?php
-                include 'views/home.php';
+                header("Location: index.php");
             } else {
                 ?>
                     <div class="alert text-center alert-danger" role="alert">
@@ -181,7 +182,7 @@ switch ($action) {
         break;
 
     case 'logout':
-        $users = $userController->logout();
+        $userController->logout();
         break;
 
     default:

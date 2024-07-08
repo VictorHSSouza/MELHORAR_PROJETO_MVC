@@ -107,6 +107,5 @@ class UserController {
         header("Location: index.php");
         exit;
     }
-    
 }
 ?>
